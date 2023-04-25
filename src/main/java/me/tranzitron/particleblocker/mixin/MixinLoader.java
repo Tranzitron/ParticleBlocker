@@ -1,0 +1,42 @@
+package me.tranzitron.particleblocker.mixin;
+
+import me.tranzitron.particleblocker.ParticleBlocker;
+import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
+import org.spongepowered.asm.launch.MixinBootstrap;
+import org.spongepowered.asm.launch.MixinTweaker;
+import org.spongepowered.asm.mixin.MixinEnvironment;
+import org.spongepowered.asm.mixin.Mixins;
+
+import java.util.Map;
+
+public class MixinLoader implements IFMLLoadingPlugin {
+    public MixinLoader() {
+        System.out.println(String.format("[%s] Injecting with IFMLLoadingPlugin.", ParticleBlocker.NAME));
+        MixinBootstrap.init();
+        Mixins.addConfiguration("mixins.particleblocker.json"); //TODO: Add your own mixin config file here
+        MixinEnvironment.getDefaultEnvironment().setSide(MixinEnvironment.Side.CLIENT);
+    }
+
+    @Override
+    public String[] getASMTransformerClass() {
+        return new String[0];
+    }
+
+    @Override
+    public String getModContainerClass() {
+        return null;
+    }
+
+    @Override
+    public String getSetupClass() {
+        return null;
+    }
+
+    @Override
+    public void injectData(Map<String, Object> data) {}
+
+    @Override
+    public String getAccessTransformerClass() {
+        return null;
+    }
+}

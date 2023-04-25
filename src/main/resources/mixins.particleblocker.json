@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.7",
+  "package": "me.tranzitron.particleblocker.mixin.mixins",
+  "refmap": "mixins.particleblocker.refmap.json",
+  "compatibilityLevel": "JAVA_8",
+  "client": [
+    "MinecraftMixin",
+    "EffectRendererMixin"
+  ],
+  "injectors": {
+    "maxShiftBy": 5,
+    "defaultRequire": 1
+  },
+  "verbose": true
+}
