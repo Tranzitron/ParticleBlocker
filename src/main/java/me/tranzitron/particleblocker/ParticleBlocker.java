@@ -1,6 +1,8 @@
 package me.tranzitron.particleblocker;
 
+import cc.polyfrost.oneconfig.utils.hypixel.LocrawInfo;
 import me.tranzitron.particleblocker.command.ExampleCommand;
+import me.tranzitron.particleblocker.config.PBConfig;
 import me.tranzitron.particleblocker.config.TestConfig;
 import cc.polyfrost.oneconfig.events.event.InitializationEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -21,12 +23,12 @@ public class ParticleBlocker {
     public static final String VERSION = "@VER@";
     @Mod.Instance(MODID)
     public static ParticleBlocker INSTANCE; // Adds the instance of the mod, so we can access other variables.
-    public static TestConfig config;
-
+    public static PBConfig config;
     // Register the config and commands.
     @Mod.EventHandler
     public void onInit(FMLInitializationEvent event) {
-        config = new TestConfig();
+        config = new PBConfig();
         CommandManager.INSTANCE.registerCommand(new ExampleCommand());
     }
+
 }

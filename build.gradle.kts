@@ -158,7 +158,7 @@ tasks {
     // Configures our shadow/shade configuration, so we can
     // include some dependencies within our mod jar file.
     named<ShadowJar>("shadowJar") {
-        archiveClassifier.set("dev") // TODO: machete gets confused by the `dev` prefix.
+        archiveClassifier.set("dev")
         configurations = listOf(shade)
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     }
