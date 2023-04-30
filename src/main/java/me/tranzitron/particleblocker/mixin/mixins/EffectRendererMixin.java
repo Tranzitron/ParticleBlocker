@@ -16,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @Mixin({ EffectRenderer.class })
 public class EffectRendererMixin
@@ -32,7 +33,7 @@ public class EffectRendererMixin
     private void removeBlockBreak(BlockPos pos, IBlockState blockState, final CallbackInfo ci) {
         if(PBConfig.masterSwitch){
             Block block = blockState.getBlock();
-            if(Block.isEqualTo(blockState.getBlock() , Blocks.reeds)){
+            if(hasNoParticle(block)){
                 ci.cancel();
             }
         }
@@ -43,8 +44,7 @@ public class EffectRendererMixin
     private void removeBlockHit(BlockPos pos, EnumFacing facing,final CallbackInfo ci) {
         if(PBConfig.masterSwitch) {
             Block block = worldObj.getBlockState(pos).getBlock();
-            if (Block.isEqualTo(worldObj.getBlockState(pos).getBlock(), Blocks.reeds)) {
-                System.out.println(worldObj.getBlockState(pos).getBlock().getRegistryName().toString());
+            if(hasNoParticle(block)){
                 ci.cancel();
             }
         }
@@ -54,9 +54,24 @@ public class EffectRendererMixin
     private void removeBlockHit_1(BlockPos pos, MovingObjectPosition movingObjectPosition, final CallbackInfo ci) {
         if(PBConfig.masterSwitch) {
             Block block = worldObj.getBlockState(pos).getBlock();
-            if (Block.isEqualTo(worldObj.getBlockState(pos).getBlock(), Blocks.reeds)) {
+            if(hasNoParticle(block)){
                 ci.cancel();
             }
         }
+    }
+
+    private boolean hasNoParticle(Block b){
+        String[] logList = new String[]{"minecraft:log","minecraft:log2"};
+        if(Arrays.asList(logList).contains(b.getRegistryName())){
+            return PBConfig.logs;
+        }
+        String[] farmList = new String[]{
+                "minecraft:reeds", "minecraft:wheat","minecraft:pumpkin", "minecraft:melon_block",
+                "minecraft:potatoes","minecraft:carrots","minecraft:nether_wart","minecraft:cocoa",
+                "minecraft:cactus","minecraft:brown_mushroom","minecraft:red_mushroom"};
+        if(Arrays.asList(farmList).contains(b.getRegistryName())){
+            return PBConfig.farming;
+        }
+        return false;
     }
 }
