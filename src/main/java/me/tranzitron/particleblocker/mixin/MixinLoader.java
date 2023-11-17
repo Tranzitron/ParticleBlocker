@@ -3,7 +3,6 @@ package me.tranzitron.particleblocker.mixin;
 import me.tranzitron.particleblocker.ParticleBlocker;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import org.spongepowered.asm.launch.MixinBootstrap;
-import org.spongepowered.asm.launch.MixinTweaker;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.Mixins;
 
@@ -33,7 +32,8 @@ public class MixinLoader implements IFMLLoadingPlugin {
     }
 
     @Override
-    public void injectData(Map<String, Object> data) {}
+    public void injectData(Map<String, Object> data) {
+    }
 
     @Override
     public String getAccessTransformerClass() {

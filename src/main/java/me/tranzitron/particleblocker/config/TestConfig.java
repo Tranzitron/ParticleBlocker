@@ -1,6 +1,5 @@
 package me.tranzitron.particleblocker.config;
 
-import me.tranzitron.particleblocker.ParticleBlocker;
 import cc.polyfrost.oneconfig.config.Config;
 import cc.polyfrost.oneconfig.config.annotations.Dropdown;
 import cc.polyfrost.oneconfig.config.annotations.HUD;
@@ -9,6 +8,7 @@ import cc.polyfrost.oneconfig.config.annotations.Switch;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
 import cc.polyfrost.oneconfig.config.data.OptionSize;
+import me.tranzitron.particleblocker.ParticleBlocker;
 
 /**
  * The main Config entrypoint that extends the Config type and inits the config options.

@@ -1,8 +1,8 @@
 package me.tranzitron.particleblocker.command;
 
-import me.tranzitron.particleblocker.ParticleBlocker;
 import cc.polyfrost.oneconfig.utils.commands.annotations.Command;
 import cc.polyfrost.oneconfig.utils.commands.annotations.Main;
+import me.tranzitron.particleblocker.ParticleBlocker;
 
 /**
  * An example command implementing the Command api of OneConfig.

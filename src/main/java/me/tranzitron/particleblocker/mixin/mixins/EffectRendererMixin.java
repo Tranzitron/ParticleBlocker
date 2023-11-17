@@ -18,58 +18,54 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-@Mixin({ EffectRenderer.class })
-public class EffectRendererMixin
-{
+@Mixin({EffectRenderer.class})
+public class EffectRendererMixin {
+    @Shadow
+    protected World worldObj;
     private ArrayList<Block> logBlocks = new ArrayList<>();
 
-
-    @Shadow protected World worldObj;
     public EffectRendererMixin() {
         logBlocks.add(Blocks.log);
     }
 
-    @Inject(method = { "addBlockDestroyEffects" }, at = { @At("HEAD") }, cancellable = true)
+    @Inject(method = {"addBlockDestroyEffects"}, at = {@At("HEAD")}, cancellable = true)
     private void removeBlockBreak(BlockPos pos, IBlockState blockState, final CallbackInfo ci) {
-        if(PBConfig.masterSwitch){
+        if (PBConfig.masterSwitch) {
             Block block = blockState.getBlock();
-            if(hasNoParticle(block)){
+            if (hasNoParticle(block)) {
                 ci.cancel();
             }
         }
         System.out.println(blockState.getBlock().getRegistryName());
     }
 
-    @Inject(method = { "addBlockHitEffects(Lnet/minecraft/util/BlockPos;Lnet/minecraft/util/EnumFacing;)V" }, at = { @At("HEAD") }, cancellable = true)
-    private void removeBlockHit(BlockPos pos, EnumFacing facing,final CallbackInfo ci) {
-        if(PBConfig.masterSwitch) {
+    @Inject(method = {"addBlockHitEffects(Lnet/minecraft/util/BlockPos;Lnet/minecraft/util/EnumFacing;)V"}, at = {@At("HEAD")}, cancellable = true)
+    private void removeBlockHit(BlockPos pos, EnumFacing facing, final CallbackInfo ci) {
+        if (PBConfig.masterSwitch) {
             Block block = worldObj.getBlockState(pos).getBlock();
-            if(hasNoParticle(block)){
+            if (hasNoParticle(block)) {
                 ci.cancel();
             }
         }
     }
 
-    @Inject(method = { "addBlockHitEffects(Lnet/minecraft/util/BlockPos;Lnet/minecraft/util/MovingObjectPosition;)V" }, at = { @At("HEAD") }, cancellable = true, remap = false)
+    @Inject(method = {"addBlockHitEffects(Lnet/minecraft/util/BlockPos;Lnet/minecraft/util/MovingObjectPosition;)V"}, at = {@At("HEAD")}, cancellable = true, remap = false)
     private void removeBlockHit_1(BlockPos pos, MovingObjectPosition movingObjectPosition, final CallbackInfo ci) {
-        if(PBConfig.masterSwitch) {
+        if (PBConfig.masterSwitch) {
             Block block = worldObj.getBlockState(pos).getBlock();
-            if(hasNoParticle(block)){
+            if (hasNoParticle(block)) {
                 ci.cancel();
             }
         }
     }
 
-    private boolean hasNoParticle(Block b){
-        String[] logList = new String[]{"minecraft:log","minecraft:log2"};
-        if(Arrays.asList(logList).contains(b.getRegistryName())){
+    private boolean hasNoParticle(Block b) {
+        String[] logList = PBConfig.logList;
+        if (Arrays.asList(logList).contains(b.getRegistryName())) {
             return PBConfig.logs;
         }
-        String[] farmList = new String[]{
-                "minecraft:reeds", "minecraft:wheat","minecraft:pumpkin", "minecraft:melon_block",
-                "minecraft:potatoes","minecraft:carrots","minecraft:nether_wart","minecraft:cocoa",
-                "minecraft:cactus","minecraft:brown_mushroom","minecraft:red_mushroom"};
-        if(Arrays.asList(farmList).contains(b.getRegistryName())){
+        String[] farmList = PBConfig.farmList;
+        if (Arrays.asList(farmList).contains(b.getRegistryName())) {
             return PBConfig.farming;
         }
         return false;
